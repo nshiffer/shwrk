@@ -2,7 +2,7 @@
 node_modules/
 
 # Generated CSS file
-css/output.css
+
 
 # OS files
 .DS_Store
