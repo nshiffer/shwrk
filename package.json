@@ -1,0 +1,21 @@
+{
+  "name": "shwrk-site",
+  "version": "1.0.0",
+  "description": "SHWRK Projects Hub",
+  "main": "index.html",
+  "scripts": {
+    "build:css": "tailwindcss -i ./css/input.css -o ./css/output.css",
+    "watch:css": "tailwindcss -i ./css/input.css -o ./css/output.css --watch",
+    "build": "npm run build:css"
+  },
+  "keywords": [
+    "shwrk",
+    "projects",
+    "hub"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+} 
