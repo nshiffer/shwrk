@@ -2,12 +2,46 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+    function setMobileMenu(open) {
+        if (mobileMenu) {
+            if (open) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                if (mobileMenuClose) mobileMenuClose.focus();
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.focus();
+            }
+        }
+    }
 
     if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.addEventListener('click', () => setMobileMenu(true));
+        mobileMenuButton.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setMobileMenu(true);
+            }
         });
     }
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', () => setMobileMenu(false));
+        mobileMenuClose.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setMobileMenu(false);
+            }
+        });
+    }
+    // Close mobile menu on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            setMobileMenu(false);
+        }
+    });
 
     // Set current year in footer
     const currentYearSpan = document.getElementById('current-year');
@@ -75,5 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('section > .container').forEach(section => {
         section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
         observer.observe(section);
+    });
+
+    // Add subtle click animation to all .btn elements
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('mousedown', () => {
+            btn.classList.add('scale-95');
+        });
+        btn.addEventListener('mouseup', () => {
+            btn.classList.remove('scale-95');
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.classList.remove('scale-95');
+        });
+        btn.addEventListener('touchend', () => {
+            btn.classList.remove('scale-95');
+        });
     });
 }); 
